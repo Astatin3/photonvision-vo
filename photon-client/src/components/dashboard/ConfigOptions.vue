@@ -16,6 +16,7 @@ import Map3DTab from "@/components/dashboard/tabs/Map3DTab.vue";
 import { WebsocketPipelineType } from "@/types/WebsocketDataTypes";
 import { useDisplay } from "vuetify/lib/composables/display";
 import { useTheme } from "vuetify";
+import CustomTestTab from "@/components/dashboard/tabs/CustomTestTab.vue";
 
 const theme = useTheme();
 
@@ -31,6 +32,7 @@ const allTabs = Object.freeze({
   apriltagTab: { tabName: "AprilTag", component: AprilTagTab },
   arucoTab: { tabName: "ArUco", component: ArucoTab },
   objectDetectionTab: { tabName: "Object Detection", component: ObjectDetectionTab },
+  customTestTab: { tabName: "Custom Test", component: CustomTestTab },
   outputTab: { tabName: "Output", component: OutputTab },
   targetsTab: { tabName: "Targets", component: TargetsTab },
   pnpTab: { tabName: "PnP", component: PnPTab },
@@ -52,6 +54,7 @@ const getTabGroups = (): ConfigOption[][] => {
         allTabs.apriltagTab,
         allTabs.arucoTab,
         allTabs.objectDetectionTab,
+        allTabs.customTestTab,
         allTabs.outputTab
       ],
       [allTabs.targetsTab, allTabs.pnpTab, allTabs.map3dTab]
@@ -65,6 +68,7 @@ const getTabGroups = (): ConfigOption[][] => {
         allTabs.apriltagTab,
         allTabs.arucoTab,
         allTabs.objectDetectionTab,
+        allTabs.customTestTab,
         allTabs.outputTab
       ],
       [allTabs.targetsTab, allTabs.pnpTab, allTabs.map3dTab]
@@ -89,6 +93,7 @@ const tabGroups = computed<ConfigOption[][]>(() => {
   const isAruco = useCameraSettingsStore().currentWebsocketPipelineType === WebsocketPipelineType.Aruco;
   const isObjectDetection =
     useCameraSettingsStore().currentWebsocketPipelineType === WebsocketPipelineType.ObjectDetection;
+  const isCustomTest = useCameraSettingsStore().currentWebsocketPipelineType === WebsocketPipelineType.CustomTest;
 
   return getTabGroups()
     .map((tabGroup) =>
@@ -100,6 +105,7 @@ const tabGroups = computed<ConfigOption[][]>(() => {
           !((isAprilTag || isAruco || isObjectDetection) && tabConfig.tabName === "Contours") && //Filter out contours if we're doing AprilTags
           !(!isAprilTag && tabConfig.tabName === "AprilTag") && //Filter out apriltag unless we actually are doing AprilTags
           !(!isAruco && tabConfig.tabName === "ArUco") &&
+          !(!isCustomTest && tabConfig.tabName === "Custom Test") &&
           !(!isObjectDetection && tabConfig.tabName === "Object Detection") //Filter out ArUco unless we actually are doing ArUco
       )
     )

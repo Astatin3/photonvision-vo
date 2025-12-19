@@ -266,6 +266,11 @@ public class PipelineManager {
                 currentUserPipeline =
                         new ObjectDetectionPipeline((ObjectDetectionPipelineSettings) desiredPipelineSettings);
             }
+            case CustomTest -> {
+                logger.debug("Creating CustomTest Pipeline");
+                currentUserPipeline =
+                        new CustomTestPipeline((CustomTestPipelineSettings) desiredPipelineSettings);
+            }
             case Calib3d, DriverMode, FocusCamera -> {}
         }
     }
@@ -340,6 +345,7 @@ public class PipelineManager {
                     case AprilTag -> new AprilTagPipelineSettings();
                     case Aruco -> new ArucoPipelineSettings();
                     case ObjectDetection -> new ObjectDetectionPipelineSettings();
+                    case CustomTest -> new CustomTestPipelineSettings();
                     case Calib3d, DriverMode, FocusCamera -> {
                         logger.error("Got invalid pipeline type: " + type);
                         yield null;

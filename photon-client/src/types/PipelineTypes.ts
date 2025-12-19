@@ -1,5 +1,6 @@
 import type { WebsocketNumberPair } from "@/types/WebsocketDataTypes";
 import type { ObjectDetectionModelProperties } from "@/types/SettingTypes";
+import type {ConfigurableCustomTestPipelineSettings, CustomTestPipelineSettings} from "@/types/CustomTestPipeline.ts";
 
 /**
  * The on-wire form of PipelineType.java (the enum is serialized with `ordinal()`)
@@ -10,7 +11,8 @@ export enum PipelineType {
   ColoredShape = 4,
   AprilTag = 5,
   Aruco = 6,
-  ObjectDetection = 7
+  ObjectDetection = 7,
+  CustomTest = 8
 }
 
 export enum AprilTagFamily {
@@ -337,13 +339,16 @@ export const DefaultCalibration3dPipelineSettings: Calibration3dPipelineSettings
   drawAllSnapshots: false
 };
 
+
+
 export type ActivePipelineSettings =
   | ReflectivePipelineSettings
   | ColoredShapePipelineSettings
   | AprilTagPipelineSettings
   | ArucoPipelineSettings
   | ObjectDetectionPipelineSettings
-  | Calibration3dPipelineSettings;
+  | Calibration3dPipelineSettings
+  | CustomTestPipelineSettings ;
 
 export type ActiveConfigurablePipelineSettings =
   | ConfigurableReflectivePipelineSettings
@@ -351,4 +356,5 @@ export type ActiveConfigurablePipelineSettings =
   | ConfigurableAprilTagPipelineSettings
   | ConfigurableArucoPipelineSettings
   | ConfigurableObjectDetectionPipelineSettings
-  | ConfigurableCalibration3dPipelineSettings;
+  | ConfigurableCalibration3dPipelineSettings
+  | ConfigurableCustomTestPipelineSettings ;
